@@ -22,13 +22,13 @@ import java.util.EnumSet;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v1/review")
+@RequestMapping(path = "/api/v1/alexa")
 public class ReviewController {
 
     @Autowired
     private ReviewServiceImpl service;
 
-    @GetMapping
+    @GetMapping(value="/reviews")
     @Cacheable(value = "reviews")
     public ResponseEntity<GenericResponse> getReviews() throws EntityNotFoundException {
         List<Review> productReviews = service.findAll();
@@ -39,32 +39,43 @@ public class ReviewController {
         return ResponseEntity.ok(GenericResponseUtils.buildGenericResponseOK(productReviews));
     }
 
-     @PutMapping
-     @ApiOperation(value = "Create new review or update existing review if already present")
-     /*public ResponseEntity<GenericResponse> addOrUpdateReview(@MaybeNull @RequestBody final String review, @NonNull final String author,
+
+     /*public ResponseEntity<GenericResponse> addOrUpdateReview(final String review, @NonNull final String author,
                                                               @NonNull @ApiParam("review_source") final String reviewSource,
-                                                              @NonNull final Integer rating, final String title, @ApiParam("product_name") final String productName
-    )*/
-   public ResponseEntity<GenericResponse> addOrUpdateReview(@RequestBody Review reviewDetails)throws EntityNotFoundException {
+                                                              @NonNull final Integer rating, final String title, @ApiParam("product_name") final String productName,
+                                                              @ApiParam("reviewed_date") final Date reviewedDate){
+        if(rating<1 || rating >5 || author.isEmpty() || reviewSource.isEmpty()){
+            return ResponseEntity.unprocessableEntity().body(GenericResponseUtils.buildGenericResponseError("Data validation failed"));
+        }
+        else {
+            Review productReview = service.createOrUpdate(review, author, reviewSource, rating, title, productName, reviewedDate);
+            return ResponseEntity.ok(GenericResponseUtils.buildGenericResponseOK(productReview));
+//                .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + id));
+        }
+     }*/
+
+
+    @PutMapping(value="/reviews")
+    @ApiOperation(value = "Create new review or update existing review if already present")
+   public ResponseEntity<GenericResponse> addOrUpdateReview(@RequestBody @NonNull Review reviewDetails)throws EntityNotFoundException {
         //@ApiParam("reviewed_date") String reviewedDate //check for ratting 1to5
         //Uniqueness of a record is derived from author, review source and date.
         //EnumSet<Ratting> validRattings = EnumSet.of(Ratting.ONE, Ratting.TWO, Ratting.THREE, Ratting.FOUR, Ratting.FIVE);
         Review productReview = new Review();
-            if(reviewDetails.getRating()<1 || reviewDetails.getRating()>5  || reviewDetails.getAuthor().isEmpty() || reviewDetails.getReview_source().isEmpty()) {
+            if(reviewDetails.getRating()<1 || reviewDetails.getRating()>5  || reviewDetails.getAuthor().isEmpty() || reviewDetails.getReviewSource().isEmpty()) {
                 return ResponseEntity.unprocessableEntity().body(GenericResponseUtils.buildGenericResponseError(reviewDetails));
             }
             else
                 productReview = service.createOrUpdate(reviewDetails);
         return ResponseEntity.ok(GenericResponseUtils.buildGenericResponseOK(productReview));
-//                .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + id));
-
-        /*if (productReview.isEmpty()) {
-            throw new EntityNotFoundException("No reviews found.");
-        }*/
-
     }
+   }
 
+/*                .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + id));
 
+        if (productReview.isEmpty()) {
+            throw new EntityNotFoundException("No reviews found.");
+        }
 
-
-}
+    }}
+*/

@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 		MongoAutoConfiguration.class,
 		MongoDataAutoConfiguration.class
 })*/
-@EnableMongoRepositories
+//@EnableMongoRepositories
 public class ReviewApplication {
 
 	public static void main(String[] args) {
