@@ -1,0 +1,15 @@
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\utils\GenericResponseUtils.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\enums\Ratting.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\configuration\DatabaseInitializer.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\entities\Review.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\configuration\SwaggerConfiguration.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\exceptions\EntityNotFoundException.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\configuration\MongoConfiguration.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\services\ReviewService.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\ReviewApplication.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\configuration\Mongo.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\controllers\ReviewController.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\repositories\ReviewRepository.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\utils\ImportJsonService.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\dto\GenericResponse.java
+C:\Users\sssau\Downloads\review\review\src\main\java\com\alexa\review\services\impl\ReviewServiceImpl.java
