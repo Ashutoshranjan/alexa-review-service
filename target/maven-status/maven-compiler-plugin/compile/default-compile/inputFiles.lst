@@ -1,9 +1,7 @@
+C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\exceptions\InvalidRatingException.java
 C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\dto\GenericResponse.java
 C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\utils\GenericResponseUtils.java
-C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\configuration\DatabaseInitializer.java
 C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\services\impl\ReviewServiceImpl.java
-C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\configuration\Mongo.java
-C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\configuration\MongoConfiguration.java
 C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\configuration\SwaggerConfiguration.java
 C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\ReviewApplication.java
 C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\controllers\ReviewController.java
@@ -11,6 +9,7 @@ C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\rev
 C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\repositories\ReviewRepository.java
 C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\services\ReviewService.java
 C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\entities\Review.java
-C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\repositories\ReviewDao.java
-C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\utils\ImportJsonService.java
+C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\entities\CountRating.java
+C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\entities\MonthlyAvgByReviewSource.java
+C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\entities\MonthlyAvgReviewSource.java
 C:\Users\sssau\Documents\GitHub\alexa-review-service\src\main\java\com\alexa\review\enums\Ratting.java
