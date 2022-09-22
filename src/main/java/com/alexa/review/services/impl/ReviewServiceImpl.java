@@ -20,6 +20,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.data.jpa.domain.Specification.where;
 
@@ -42,7 +43,8 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> findAll(MultiValueMap<String, String> filters) {
         System.out.println("Fetch all records...");
         //"start_date:2022-01-01,end_date:2022-02-02,review_source:iTunes,rating:5"
-        String startDateValue="", endDateValue="", reviewSource="", rating="";
+        List<Review> reviewList = new ArrayList<>();
+        String startDateValue = "", endDateValue = "", reviewSource = "", rating = "";
         if (!filters.isEmpty()) {
             String[] str = filters.get("filter").get(0).replaceAll("\"", "").split(",");
             for (String s : str) {
@@ -63,20 +65,31 @@ public class ReviewServiceImpl implements ReviewService {
                 }
             }
 
-            if (!startDateValue.isEmpty() && reviewSource.isEmpty() && rating.isEmpty()) {
+            //if start date is present
+            if (!startDateValue.isEmpty()) {
                 try {
                     Date endDate = endDateValue.isEmpty() ? new Date() : new SimpleDateFormat("yyyy-MM-dd").parse(endDateValue);
-                    return repository.findByReviewedDateBetweenOrderByReviewedDateDesc(new SimpleDateFormat("yyyy-MM-dd").parse(startDateValue), endDate);
-                }
-                catch (Exception ex){
+                    reviewList = repository.findByReviewedDateBetweenOrderByReviewedDateDesc(new SimpleDateFormat("yyyy-MM-dd").parse(startDateValue), endDate);
+                } catch (Exception ex) {
                     //date is not in correct format
                 }
+            } else
+                reviewList = repository.findAll();
+            //if review_source is present
+            if (!reviewSource.isEmpty()) {
+                String finalReviewSource = reviewSource;
+                reviewList = reviewList.stream().filter(i -> i.getReviewSource().equals(finalReviewSource)).collect(Collectors.toList());
             }
-            return repository.findAll();
+            //if rating is present
+            if (!rating.isEmpty()) {
+                String finalRating = rating;
+                reviewList = reviewList.stream().filter(i -> i.getRating() == Integer.valueOf(finalRating)).collect(Collectors.toList());
+            }
 
-        }
-        else
-        return repository.findAll();
+            return reviewList;
+
+        } else
+            return repository.findAll();
 
 
     }
@@ -175,9 +188,10 @@ public class ReviewServiceImpl implements ReviewService {
         }
         return review;
     }
-    public String getReviewDetails(Review review){
+
+    public String getReviewDetails(Review review) {
         System.out.println(
-                "Review: " + review.getReview() + ", author: " +review.getAuthor()
+                "Review: " + review.getReview() + ", author: " + review.getAuthor()
                         + ", review_source: " + review.getReviewSource()
         );
         return "";
