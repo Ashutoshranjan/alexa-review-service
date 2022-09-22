@@ -7,12 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long>, JpaSpecificationExecutor<Review> {
-    /*public List<Review> findAll();
-    public List<Review> findByAuthor(String author);*/
-    //public List<Review> findAll(Sort);
-    //public Review insert();
+    List<Review> findByReviewedDateBetweenOrderByReviewedDateDesc(Date startDate, Date endDate);
+
 }

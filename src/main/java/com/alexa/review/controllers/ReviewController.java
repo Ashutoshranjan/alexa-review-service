@@ -14,27 +14,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.Cacheable;
 
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v1/alexa")
+@RequestMapping(path = "/api/v1/alexa/reviews")
 public class ReviewController {
 
     @Autowired
     private ReviewServiceImpl service;
 
-    @GetMapping(value="/reviews")
+    @GetMapping
     @Cacheable(value = "reviews")
-    public ResponseEntity<GenericResponse> getReviews() throws EntityNotFoundException {
-        List<Review> productReviews = service.findAll();
+    public ResponseEntity<GenericResponse> getReviews(@RequestParam MultiValueMap<String, String> filters) throws EntityNotFoundException {
+        //"start_date:2022-01-01,end_date:2022-02-02,review_source:iTunes,rating:5"
+        List<Review> productReviews = service.findAll(filters);//service.findAll(startDate, endDate);
         if (productReviews.isEmpty()) {
-            throw new EntityNotFoundException("No reviews found.");
-            //return it in message
+            return ResponseEntity.ok(GenericResponseUtils.buildGenericResponseOK("No reviews found."));
         }
         return ResponseEntity.ok(GenericResponseUtils.buildGenericResponseOK(productReviews));
     }
@@ -55,7 +58,7 @@ public class ReviewController {
      }*/
 
 
-    @PutMapping(value="/reviews")
+    @PutMapping
     @ApiOperation(value = "Create new review or update existing review if already present")
    public ResponseEntity<GenericResponse> addOrUpdateReview(@RequestBody @NonNull Review reviewDetails)throws EntityNotFoundException {
         //@ApiParam("reviewed_date") String reviewedDate //check for ratting 1to5
@@ -69,13 +72,18 @@ public class ReviewController {
                 productReview = service.createOrUpdate(reviewDetails);
         return ResponseEntity.ok(GenericResponseUtils.buildGenericResponseOK(productReview));
     }
-   }
-
-/*                .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + id));
-
-        if (productReview.isEmpty()) {
+/*
+    @GetMapping
+    public ResponseEntity<GenericResponse> getReviewsByDate(@RequestParam(name = "start_date") final Date startDate, @RequestParam(name = "end_Date", required = false) final Date endDate) throws EntityNotFoundException {
+        List<Review> productReviews = service.findAll(startDate, endDate);
+        if (productReviews.isEmpty()) {
             throw new EntityNotFoundException("No reviews found.");
+            //return it in message
         }
+        return ResponseEntity.ok(GenericResponseUtils.buildGenericResponseOK(productReviews));
+    }*/
 
-    }}
-*/
+
+}
+
+//            .orElseThrow(() -> new ResourceNotFoundException("No reviews yet"));

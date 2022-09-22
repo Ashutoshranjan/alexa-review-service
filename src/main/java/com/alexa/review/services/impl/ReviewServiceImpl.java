@@ -11,8 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.Tuple;
+import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +37,48 @@ public class ReviewServiceImpl implements ReviewService {
         //repository.save(new Review("review1", "author1", "review_source1", 5, "title1", "product_name1",new Date() ));
         //repository.findAll().forEach(i -> System.out.println(getReviewDetails(i)));
         return repository.findAll();
+    }
+
+    public List<Review> findAll(MultiValueMap<String, String> filters) {
+        System.out.println("Fetch all records...");
+        //"start_date:2022-01-01,end_date:2022-02-02,review_source:iTunes,rating:5"
+        String startDateValue="", endDateValue="", reviewSource="", rating="";
+        if (!filters.isEmpty()) {
+            String[] str = filters.get("filter").get(0).replaceAll("\"", "").split(",");
+            for (String s : str) {
+                String[] tmp = s.split(":");
+                switch (tmp[0]) {
+                    case "start_date":
+                        startDateValue = tmp[1];
+                        break;
+                    case "end_date":
+                        endDateValue = tmp[1];
+                        break;
+                    case "review_source":
+                        reviewSource = tmp[1];
+                        break;
+                    case "rating":
+                        rating = tmp[1];
+                        break;
+                }
+            }
+
+            if (!startDateValue.isEmpty() && reviewSource.isEmpty() && rating.isEmpty()) {
+                try {
+                    Date endDate = endDateValue.isEmpty() ? new Date() : new SimpleDateFormat("yyyy-MM-dd").parse(endDateValue);
+                    return repository.findByReviewedDateBetweenOrderByReviewedDateDesc(new SimpleDateFormat("yyyy-MM-dd").parse(startDateValue), endDate);
+                }
+                catch (Exception ex){
+                    //date is not in correct format
+                }
+            }
+            return repository.findAll();
+
+        }
+        else
+        return repository.findAll();
+
+
     }
 
     /*@Override
@@ -100,6 +147,7 @@ public class ReviewServiceImpl implements ReviewService {
     public Review createOrUpdate(Review review) {
         //Boolean isAuthorExists = repository.findBy()
         List<Review> ll = repository.findAll(where(hasAuthor(review.getAuthor())).and(hasReviewSource(review.getReviewSource())));
+        //TODO  List<User> findByAuthorAndReviewSource(String author, String reviewSource);
         if (ll.isEmpty()) {
             //new entry
             repository.save(review);
