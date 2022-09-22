@@ -8,7 +8,8 @@
  load attached alexa.sql
  
  # APIs
-1. POST http://localhost:8094/authenticate
+1. For 3rd party browser application shall be able to access the service, using JWT
+ POST http://localhost:8094/authenticate
 Header=> Content-Type:application/json
 Body=>
 {
