@@ -8,7 +8,7 @@
  load attached alexa.sql
  
  # APIs
-1. POST http://localhost:8095/authenticate
+1. POST http://localhost:8094/authenticate
 Header=> Content-Type:application/json
 Body=>
 {
@@ -24,16 +24,18 @@ Header=>
 Content-Type:application/json
 Authorization:Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290IiwiZXhwIjoxNjYzOTAxNDUxLCJpYXQiOjE2NjM4NjU0NTF9.0dQZ-EktOV5k9Qbst-hszsz3qTLleAjye5KUVlch63g
 
-3. PUT http://localhost:8094/api/v1/alexa/reviews
+3.Accepts reviews and stores reviews 
+PUT http://localhost:8094/api/v1/alexa/reviews
 Header => Content-Type:application/json
 Body=>
 {"review":"review1","author":"author1","reviewSource":"iTunes1","rating":1,"title":"Excelente","productName":"Amazon Alexa","reviewedDate": "2022-01-12T02:27:03.000Z"}
 
-4. GET http://localhost:8094/api/v1/alexa/reviews?filter="start_date={}&end_date={}"
+4. Allows to fetches reviews, with optional filters
+ GET http://localhost:8094/api/v1/alexa/reviews?filter="start_date={}&end_date={}"
 Header => Content-Type:application/json
  filtered by date, review_source or rating
  eg:
-http://localhost:8095/api/v1/alexa/reviews?filter="start_date:2022-01-13"
+http://localhost:8094/api/v1/alexa/reviews?filter="start_date:2022-01-13"
 http://localhost:8094/api/v1/alexa/reviews?filter="start_date:2022-01-01,end_date:2022-02-02,review_source:iTunes,rating:5"
 
 5. Allows to get average monthly ratings per store(review_source)
