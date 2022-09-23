@@ -16,7 +16,7 @@ import java.util.Date;
 @Table(name="review_details")
 public class Review implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
     private String review;

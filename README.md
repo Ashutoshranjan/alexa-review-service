@@ -5,7 +5,7 @@
  create database review_service;
  
  Run the jar
- load attached alexa.sql
+ load attached alexa.json into review_details table
  
  # APIs
 1. For 3rd party browser application shall be able to access the service, using JWT

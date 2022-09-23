@@ -1,5 +1,6 @@
 com\alexa\review\entities\Review$ReviewBuilder.class
 com\alexa\review\utils\JwtUtil.class
+com\alexa\review\ReviewApplication$1.class
 com\alexa\review\ReviewApplication.class
 com\alexa\review\configuration\WebSecurityConfig.class
 com\alexa\review\exceptions\EntityNotFoundException.class
@@ -15,7 +16,6 @@ com\alexa\review\entities\Review.class
 com\alexa\review\configuration\SwaggerConfiguration.class
 com\alexa\review\models\AuthenticationResponse.class
 com\alexa\review\services\impl\ReviewServiceImpl.class
-com\alexa\review\enums\Ratting.class
 com\alexa\review\dto\GenericResponse$GenericResponseBuilder.class
 com\alexa\review\repositories\ReviewRepository.class
 com\alexa\review\entities\MonthlyAvgByReviewSource.class

@@ -50,8 +50,8 @@ public class ReviewController {
         return ResponseEntity.ok(GenericResponseUtils.buildGenericResponseOK(productReview));
     }
 
-    @GetMapping("{rating}/total_count")
-    public ResponseEntity<GenericResponse> getRatingCount(@PathVariable final int rating) {
+    @GetMapping("/reviews/{rating}/total_count")
+    public ResponseEntity<GenericResponse> getRatingCount(@PathVariable(name = "rating") final int rating) {
         if (rating == 1 || rating == 2 || rating == 3 || rating == 4 || rating == 5) {
             Long count = service.getTotalCount(rating);
             return ResponseEntity.ok(GenericResponseUtils.buildGenericResponseOK(count));
