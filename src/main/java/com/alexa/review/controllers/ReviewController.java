@@ -43,7 +43,7 @@ public class ReviewController {
         //check for ratting 1to5
         //Uniqueness of a record is derived from author, review source and date.
         Review productReview = new Review();
-        if ((reviewDetails.getRating() != 1 && reviewDetails.getRating() != 2 && reviewDetails.getRating() != 3 && reviewDetails.getRating() != 4 && reviewDetails.getRating() != 5) || reviewDetails.getAuthor().isEmpty() || reviewDetails.getReviewSource().isEmpty()) {
+        if ((reviewDetails.getRating() < 1 && reviewDetails.getRating() < 5) || reviewDetails.getAuthor().isEmpty() || reviewDetails.getReviewSource().isEmpty()) {
             return ResponseEntity.unprocessableEntity().body(GenericResponseUtils.buildGenericResponseError(reviewDetails));
         } else
             productReview = service.createOrUpdate(reviewDetails);
@@ -52,7 +52,7 @@ public class ReviewController {
 
     @GetMapping("/reviews/{rating}/total_count")
     public ResponseEntity<GenericResponse> getRatingCount(@PathVariable(name = "rating") final int rating) {
-        if (rating == 1 || rating == 2 || rating == 3 || rating == 4 || rating == 5) {
+        if (rating >= 1 && rating <= 5) {
             Long count = service.getTotalCount(rating);
             return ResponseEntity.ok(GenericResponseUtils.buildGenericResponseOK(count));
         }

@@ -19,6 +19,7 @@ public class Review implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
+    @Column(length = 5120)
     private String review;
     private String author;
     @Column(name = "review_source")
@@ -30,7 +31,4 @@ public class Review implements Serializable {
     @Column(name = "reviewed_date")
     private Date reviewedDate;
 
-    public Date getReviewedDate() {
-        return reviewedDate;
-    }
 }
